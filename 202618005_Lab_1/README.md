@@ -33,9 +33,6 @@ Based on the current working directory, the project is structured as a flat, not
 ├── plot_6_stock_by_category.png
 └── plot_7_correlation_heatmap.png
 ```
-# DS605 Lab Assignment 1
-## Data Scraping and Preprocessing using Python and Scrapy
-
 ---
 
 ## Task 1 – Data Scraping
@@ -120,3 +117,6 @@ All tasks have been consolidated into a single notebook workflow.
 2. Ensure the required libraries are installed:
    ```bash
    pip install scrapy pandas numpy matplotlib seaborn wordcloud
+
+## Conclusion
+Here, the data only consists of 10% of the actual data, which makes the scope very narrow, so to have a better understanding, we can use the entire dataset and derive more insights which may change the correlation between the attributes.
