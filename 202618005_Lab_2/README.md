@@ -16,12 +16,11 @@ This project is divided into two core parts:
 ---
 
 ## Key Observations
-1. **Gender Disparity:** Female survival was **74.20%**, compared to just **18.89%** for males.
-2. **Class Privilege:** Survival rate was highest in 1st Class (62.96%) and lowest in 3rd Class (24.24%).
-3. **Highest vs Lowest Cohorts:** 1st Class females recorded the highest survival rate (**96.80%**), while 3rd Class males had the lowest (**13.54%**).
-4. **Fare Outliers & Survival:** Fare was heavily right-skewed with an upper IQR threshold around $66.34; passengers paying $> $100 had significantly higher survival chances.
-5. **Feature Correlations:** Strongest positive relationship is `FamilySize` and `SibSp` ($r = 0.89$), while `FamilySize` and `IsAlone` share the strongest negative relationship ($r = -0.69$).
-
+1. **Gender Disparity in Survival:** Survival rate was **74.20%** for females compared to **18.89%** for males, demonstrating the strong prioritization of women during lifeboat evacuations.
+2. **Correlation Strengths:** The strongest positive relationship in the dataset is between `FamilySize` and `SibSp` ($+0.89$), while the strongest negative relationship is between `FamilySize` and `IsAlone` ($-0.69$).
+3. **Class & Gender Intersection:** 1st-class females achieved the highest survival rate across all groups (**96.80%**), whereas 3rd-class males suffered the lowest survival rate (**13.54%**).
+4. **Demographic Casualties:** Passengers traveling alone (`IsAlone = 1`), particularly young adult males under the age of 30 in lower classes, constituted the largest casualty demographic cohort.
+5. **High Fare Survival Premium:** Passengers paying extreme fares ($> \$100$) had substantially higher survival rates, clearly separated in the upper region of the `Age vs. Fare` scatter plot.
 ---
 
 ## Repository Structure
