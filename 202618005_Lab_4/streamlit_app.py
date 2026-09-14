@@ -7,44 +7,39 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom pastel styling
+# Custom styling updated to integrate perfectly with native Dark Mode
 st.markdown("""
 <style>
-    /* Main app background & font colors */
-    .stApp {
-        background-color: #F8FAFC;
-        color: #334155;
-    }
-    
-    /* Pastel card container for results */
-    .pastel-card {
-        background: linear-gradient(135deg, #F0F4FF 0%, #E8EEF5 100%);
-        border: 1px solid #D9E2EC;
+    /* Dark mode card container for results */
+    .result-card {
+        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+        border: 1px solid #334155;
         border-radius: 16px;
         padding: 24px;
-        box-shadow: 0 4px 16px rgba(148, 163, 184, 0.12);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         margin-bottom: 16px;
+        color: #F8FAFC;
     }
     
-    .pastel-placeholder {
-        background-color: #F1F5F9;
-        border: 2px dashed #CBD5E1;
+    .result-placeholder {
+        background-color: transparent;
+        border: 2px dashed #475569;
         border-radius: 16px;
         padding: 40px 24px;
         text-align: center;
-        color: #64748B;
+        color: #94A3B8;
     }
 
     .price-tag {
         font-size: 2.75rem;
         font-weight: 700;
-        color: #4F46E5;
+        color: #818CF8; /* Vibrant indigo to pop on dark backgrounds */
         margin: 8px 0;
     }
 
-    /* Form button pastel accent */
+    /* Form button accent */
     div.stButton > button:first-child {
-        background-color: #818CF8;
+        background-color: #4F46E5;
         color: white;
         border: none;
         border-radius: 10px;
@@ -136,10 +131,10 @@ with right_col:
                     price = response.json()["predicted_price"]
                     
                     st.markdown(f"""
-                    <div class="pastel-card">
-                        <span style="color: #6366F1; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em;">Recommended Nightly Rate</span>
+                    <div class="result-card">
+                        <span style="color: #818CF8; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em;">Recommended Nightly Rate</span>
                         <div class="price-tag">${price:.2f}</div>
-                        <p style="margin: 0; color: #475569; font-size: 0.95rem;">
+                        <p style="margin: 0; color: #CBD5E1; font-size: 0.95rem;">
                             Estimated fair market rate for an <strong>{room_type}</strong> in <strong>{neighbourhood_group}</strong>.
                         </p>
                     </div>
@@ -155,8 +150,8 @@ with right_col:
                 st.error("Server timeout or unreachable backend. Please check the Render service status.")
     else:
         st.markdown("""
-        <div class="pastel-placeholder">
-            <h4 style="color: #475569; margin-bottom: 6px;">Awaiting Input</h4>
+        <div class="result-placeholder">
+            <h4 style="color: #CBD5E1; margin-bottom: 6px;">Awaiting Input</h4>
             <p style="font-size: 0.9rem; margin: 0;">Adjust listing attributes on the left and submit to view the real-time valuation card here.</p>
         </div>
         """, unsafe_allow_html=True)
