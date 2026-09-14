@@ -1,11 +1,8 @@
 import streamlit as st
 import requests
 
-# 1. Page Configuration for a cleaner look
 st.set_page_config(page_title="NYC Airbnb Price Estimator", page_icon="🗽", layout="centered")
 
-# 2. Behind-the-scenes data mapping
-# Abstracting away technical coordinates and frequency weights from the user
 BOROUGH_METADATA = {
     "Manhattan": {"lat": 40.7831, "lon": -73.9712, "freq": 0.44},
     "Brooklyn": {"lat": 40.6782, "lon": -73.9442, "freq": 0.41},
@@ -16,12 +13,12 @@ BOROUGH_METADATA = {
 
 API_URL = "https://two02618005-khushalbafna-ds605-1.onrender.com/predict"
 
-# 3. UI Header
 st.title("🗽 NYC Airbnb Price Estimator")
-st.markdown("Enter your listing details below to get an AI-powered nightly price recommendation.")
-st.divider()
+st.markdown("Enter your listing details below for an AI-powered nightly price recommendation.")
 
-# 4. Form Layout
+# Top-level placeholder for results so mobile users don't have to scroll down
+result_placeholder = st.empty()
+
 with st.form("pricing_form"):
     st.subheader("📍 Property Details")
     col1, col2 = st.columns(2)
@@ -60,12 +57,9 @@ with st.form("pricing_form"):
             0.0, 10.0, 1.0, step=0.1
         )
 
-    # Submit Button
     submitted = st.form_submit_button("💡 Get Price Estimate", use_container_width=True)
 
-# 5. Prediction Handling
 if submitted:
-    # Automatically map the selected borough to its corresponding latitude/longitude and frequency
     selected_meta = BOROUGH_METADATA[neighbourhood_group]
     
     payload = {
@@ -86,9 +80,12 @@ if submitted:
             response = requests.post(API_URL, json=payload)
             if response.status_code == 200:
                 price = response.json()["predicted_price"]
-                st.success("Analysis Complete!")
-                st.metric(label=f"Recommended Nightly Rate for {room_type} in {neighbourhood_group}", value=f"${price:.2f}")
+                
+                # Render the success message and metric inside the top placeholder
+                with result_placeholder.container():
+                    st.success("Analysis Complete!")
+                    st.metric(label=f"Recommended Rate: {room_type} in {neighbourhood_group}", value=f"${price:.2f}")
             else:
-                st.error(f"API Error: {response.status_code}")
+                result_placeholder.error(f"API Error: {response.status_code}")
         except Exception as e:
-            st.error("Failed to connect to the prediction server. Ensure the backend is live.")
+            result_placeholder.error("Failed to connect to the prediction server. Ensure the backend is live.")
