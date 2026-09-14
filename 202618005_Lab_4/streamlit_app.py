@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "https://airbnb-prediction-api-xxxx.onrender.com/predict"
+API_URL = "https://two02618005-khushalbafna-ds605-1.onrender.com/predict"
 
 st.title("🏡 Airbnb Nightly Price Predictor")
 
