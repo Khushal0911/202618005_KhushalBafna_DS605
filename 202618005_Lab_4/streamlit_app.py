@@ -1,8 +1,7 @@
 import streamlit as st
 import requests
 
-# Replace with your deployed Vercel URL
-API_URL = "https://your-vercel-app-name.vercel.app/predict"
+API_URL = "https://airbnb-prediction-api-xxxx.onrender.com/predict"
 
 st.title("🏡 Airbnb Nightly Price Predictor")
 
