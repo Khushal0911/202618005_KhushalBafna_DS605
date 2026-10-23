@@ -1,0 +1,16 @@
+Components,Method,Accuracy,Accuracy (%)
+20,PCA Nearest Neighbour,0.9875,98.75
+20,KNN,0.9375,93.75
+20,RBF SVM,0.9625,96.25
+40,PCA Nearest Neighbour,0.9875,98.75
+40,KNN,0.9625,96.25
+40,RBF SVM,0.975,97.5
+60,PCA Nearest Neighbour,0.9875,98.75
+60,KNN,0.9375,93.75
+60,RBF SVM,0.9625,96.25
+80,PCA Nearest Neighbour,0.9875,98.75
+80,KNN,0.9375,93.75
+80,RBF SVM,0.975,97.5
+99,PCA Nearest Neighbour,0.9875,98.75
+99,KNN,0.95,95.0
+99,RBF SVM,0.9625,96.25
