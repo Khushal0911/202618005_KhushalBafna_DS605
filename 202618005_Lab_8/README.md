@@ -2,34 +2,41 @@
 
 Implementation and comparison of a **Decision Tree** and a **Linear SVM written from scratch (NumPy/Pandas)** against their Scikit-learn counterparts, plus kernel SVMs on a nonlinear dataset.
 
-**Dataset:** UCI Banknote Authentication (1,372 samples, 4 features: variance, skewness, curtosis, entropy; class 0 = genuine, 1 = forged).
+**Dataset:** UCI Banknote Authentication (1,372 samples, 4 features: variance, skewness, kurtosis, entropy; class 0 = genuine, 1 = forged).
 
 ## Repository structure
 ```
-.
-├── Lab8.ipynb          # all code: Parts A-D, with outputs
-├── data/
-│   └── data_banknote_authentication.txt
-├── plots/              # decision boundaries, margin plots, manual tree, comparison charts
-├── results/            # CSV tables and the manual tree's text rules
+202618005_Lab_8/
+├── code.ipynb                          # all code and outputs: Parts A-D
+├── data_banknote_authentication.txt    # dataset (comma-separated, no header)
+├── plots/                              # decision boundaries, margin plots, manual tree, comparison charts
+├── results/                            # CSV tables and the manual tree's text rules
 └── README.md
 ```
 
 ## How to run
 ```bash
 pip install numpy pandas scikit-learn matplotlib jupyter
-jupyter notebook Lab8.ipynb     # then Kernel -> Restart & Run All
+jupyter notebook code.ipynb     # then Kernel -> Restart & Run All
 ```
-The notebook reads `data/data_banknote_authentication.txt` (comma-separated, no header); it downloads it from UCI if the file is missing.
+The notebook reads `data_banknote_authentication.txt` from the repository root and creates `plots/` and `results/` automatically if they are missing.
 
 ## Method
-- **Split:** one stratified 80/20 train/test split (`random_state=42`) is reused by every experiment (1,097 train / 275 test).
-- **Features:** two features (variance, skewness) for all 2D boundary plots; all four features for the final evaluation in Part D.
-- **Scaling:** `StandardScaler` fitted on training data only; used for the SVMs (trees are scale-invariant).
+- **Split:** one stratified 80/20 train/test split (`random_state=42`), reused by every Part A, B and D experiment (1,097 train / 275 test samples).
+- **Features:** two features (variance, skewness) for the 2D boundary plots in Parts A and B; all four features for the final evaluation in Part D.
+- **Scaling:** `StandardScaler` fitted on the training data only and applied to the test data; used for the SVMs (trees are scale-invariant).
 - **From scratch (NumPy only):**
   - *Decision tree* - Gini impurity, entropy, best feature/threshold search (midpoint thresholds), recursive growth with stopping rules (`max_depth`, `min_samples_split`, `min_samples_leaf`, pure node), a `predict` function, text export of the split rules and a matplotlib drawing of the tree.
   - *Linear soft-margin SVM* - labels mapped to -1/+1; hinge loss with L2 regularisation minimised by full-batch subgradient descent. The objective is `(lam/2)||w||^2 + mean(max(0, 1 - y(w.x + b)))` with `lam = 1/(C*n)`, which has the same optimum as scikit-learn's `SVC(kernel="linear", C=C)`, so C values are directly comparable.
-- **Scikit-learn** is used only for comparison models, the split, scaling, metrics and datasets.
+- **Scikit-learn** is used only for the comparison models, the split, scaling, metrics and datasets.
+
+## Output files
+| Part | Plots (`plots/`) | Tables (`results/`) |
+|---|---|---|
+| A | `A1_tree_boundaries.png`, `A2_manual_tree.png`, `A3_depth_curves.png`, `A4_boundaries_by_depth.png` | `A_grid.csv`, `A_manual_tree_rules.txt` |
+| B | `B1_svm_margins.png`, `B2_effect_of_C.png`, `B3_lr_iterations.png` | `B_C.csv`, `B_iterations.csv` |
+| C | `C_moons.png`, `C_circles.png` | `C_kernels.csv`, `C_rbf_sweep.csv` |
+| D | `D1_confusion.png`, `D2_metrics_times.png`, `D3_tree_complexity.png` | `D_comparison.csv` |
 
 ---
 
@@ -39,9 +46,9 @@ The notebook reads `data/data_banknote_authentication.txt` (comma-separated, no 
 |---|---|
 | ![boundaries](plots/A1_tree_boundaries.png) | ![tree](plots/A2_manual_tree.png) |
 
-The split rules of the manual tree are in `results/A_manual_tree_rules.txt`.
+The manual tree's split rules are in `results/A_manual_tree_rules.txt`.
 
-**Criterion x depth exploration** (`results/A_grid.csv`, `plots/A3_depth_curves.png`, `plots/A4_boundaries_by_depth.png`):
+**Criterion and depth exploration** (`results/A_grid.csv`; boundaries at depths 1, 4 and 10 in `plots/A4_boundaries_by_depth.png`):
 
 ![depth curves](plots/A3_depth_curves.png)
 
@@ -58,9 +65,9 @@ The split rules of the manual tree are in `results/A_manual_tree_rules.txt`.
 
 ![margins](plots/B1_svm_margins.png)
 
-The solid line is the separating boundary, dashed lines are the +1/-1 margins, and red rings mark margin-violating samples (shown for both models).
+The solid line is the separating boundary, the dashed lines are the +1/-1 margins, and red rings mark margin-violating samples (shown for both models).
 
-**Effect of C** (`results/B_C.csv`, `plots/B2_effect_of_C.png`):
+**Effect of C** (`results/B_C.csv`, boundaries for each C in `plots/B2_effect_of_C.png`):
 
 | C | Manual test acc | Sklearn test acc | Manual violators | Sklearn SVs | Margin width |
 |---|---|---|---|---|---|
@@ -71,7 +78,7 @@ The solid line is the separating boundary, dashed lines are the +1/-1 margins, a
 | 10 | 0.8764 | 0.8764 | 311 | 311 | 0.8314 |
 | 100 | 0.8764 | 0.8764 | 309 | 312 | 0.8288 |
 
-**Learning rate and iterations** (`results/B_iterations.csv`, `plots/B3_lr_iterations.png`):
+**Learning rate and iterations** (`results/B_iterations.csv`):
 
 ![lr and iterations](plots/B3_lr_iterations.png)
 
@@ -86,7 +93,7 @@ The solid line is the separating boundary, dashed lines are the +1/-1 margins, a
 
 ## Part C - Kernel SVM and nonlinear boundaries
 
-Linear, polynomial (degree 3) and RBF kernels on `make_moons` and `make_circles` (`results/C_kernels.csv`):
+Linear, polynomial (degree 3) and RBF kernels on `make_moons` and `make_circles` (accuracies in `results/C_kernels.csv`):
 
 | Moons | Circles |
 |---|---|
@@ -94,7 +101,7 @@ Linear, polynomial (degree 3) and RBF kernels on `make_moons` and `make_circles`
 
 **Why a nonlinear kernel helps:** a linear kernel can only draw a straight line, so it cannot separate classes that are interleaved or nested. Polynomial and RBF kernels implicitly map the data into a higher-dimensional space where a linear separator exists, which appears as a curved boundary in the original 2D space.
 
-**RBF hyperparameter sweep on moons** (train 350 / test 150 points):
+**RBF hyperparameter sweep on moons** (`results/C_rbf_sweep.csv`; 350 train / 150 test points):
 
 | C | gamma | Train | Test | Support vectors | Gap |
 |---|---|---|---|---|---|
