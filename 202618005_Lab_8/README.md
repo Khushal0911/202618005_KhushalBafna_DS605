@@ -8,8 +8,7 @@ Implementation and comparison of a **Decision Tree** and a **Linear SVM written 
 ```
 .
 ├── Lab8.ipynb          # all code: Parts A-D, with outputs
-├── data/
-│   └── data_banknote_authentication.txt
+├── data_banknote_authentication.txt
 ├── plots/              # decision boundaries, margin plots, manual tree, comparison charts
 ├── results/            # CSV tables and the manual tree's text rules
 └── README.md
