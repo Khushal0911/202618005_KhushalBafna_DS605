@@ -1,0 +1,40 @@
+|--- variance <= 0.7651
+|   |--- skewness <= 5.1608
+|   |   |--- variance <= 0.3202
+|   |   |   |--- variance <= -0.4586
+|   |   |   |   |--- class: forged (n=346, counts=[9, 337])
+|   |   |   |--- variance >  -0.4586
+|   |   |   |   |--- class: forged (n=67, counts=[11, 56])
+|   |   |--- variance >  0.3202
+|   |   |   |--- skewness <= 3.2197
+|   |   |   |   |--- class: genuine (n=39, counts=[22, 17])
+|   |   |   |--- skewness >  3.2197
+|   |   |   |   |--- class: forged (n=12, counts=[0, 12])
+|   |--- skewness >  5.1608
+|   |   |--- variance <= -3.4311
+|   |   |   |--- variance <= -4.3819
+|   |   |   |   |--- class: forged (n=29, counts=[0, 29])
+|   |   |   |--- variance >  -4.3819
+|   |   |   |   |--- class: forged (n=3, counts=[1, 2])
+|   |   |--- variance >  -3.4311
+|   |   |   |--- skewness <= 5.3646
+|   |   |   |   |--- class: genuine (n=2, counts=[1, 1])
+|   |   |   |--- skewness >  5.3646
+|   |   |   |   |--- class: genuine (n=95, counts=[95, 0])
+|--- variance >  0.7651
+|   |--- variance <= 1.7907
+|   |   |--- skewness <= 4.8814
+|   |   |   |--- skewness <= 0.6642
+|   |   |   |   |--- class: genuine (n=25, counts=[24, 1])
+|   |   |   |--- skewness >  0.6642
+|   |   |   |   |--- class: forged (n=46, counts=[18, 28])
+|   |   |--- skewness >  4.8814
+|   |   |   |--- class: genuine (n=44, counts=[44, 0])
+|   |--- variance >  1.7907
+|   |   |--- variance <= 2.3921
+|   |   |   |--- variance <= 2.3823
+|   |   |   |   |--- class: genuine (n=63, counts=[59, 4])
+|   |   |   |--- variance >  2.3823
+|   |   |   |   |--- class: forged (n=1, counts=[0, 1])
+|   |   |--- variance >  2.3921
+|   |   |   |--- class: genuine (n=325, counts=[325, 0])
